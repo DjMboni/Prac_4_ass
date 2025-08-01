@@ -1,0 +1,37 @@
+import java.util.Scanner;
+
+public class SpyCodeGenerator {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Read the message from the user.
+        System.out.print("Enter the spy message: ");
+        String originalMessage = scanner.nextLine();
+        String noVowels = originalMessage.replaceAll("(?i)[aeiou]", "");
+        String underscored = noVowels.replace(" ", "_");
+
+        // Step 4: Split the string by underscores into words
+        String[] words = underscored.split("_");
+        for (int i = 1; i < words.length; i += 2) {
+            words[i] = new StringBuilder(words[i]).reverse().toString();
+        }
+
+        // Step 6: Join the words back using underscores
+        StringBuilder finalCode = new StringBuilder();
+        for (int i = 0; i < words.length; i++) {
+            finalCode.append(words[i]);
+            if (i < words.length - 1) {
+                finalCode.append("_");
+            }
+        }
+
+        // Step 7: Append the length of the final message
+        int length = finalCode.length();
+        finalCode.append(length);
+
+        // Step 8: Print final encoded message
+        System.out.println("Encoded message: " + finalCode.toString());
+
+        scanner.close();
+    }
+}
